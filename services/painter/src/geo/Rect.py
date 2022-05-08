@@ -1,9 +1,10 @@
 from src.Direction import Direction
-from src.util.geo_util import get_min_bounding_box_rects, pack_rects
+from src.geo.geo import get_min_bounding_box_rects
+from src.geo.packing import pack_rects
 
 
 class Rect:
-    def __init__(self, x=0, y=0, w=0, h=0, children=None, direction=Direction.HORIZONTAL):
+    def __init__(self, x=0, y=0, w=0, h=0, children=None, direction=Direction.HORIZONTAL, image=None):
 
         self.x = x
         self.y = y
@@ -11,6 +12,7 @@ class Rect:
         self.height = h
         self.children = [] if children is None else children
         self.direction = direction
+        self.image = image
 
     def append(self, rects, direction=Direction.HORIZONTAL):
         if type(rects) == list and len(rects) == 0:
