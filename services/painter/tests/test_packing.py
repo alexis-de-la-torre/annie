@@ -1,6 +1,7 @@
 from src.Direction import Direction
 from src.geo.Rect import Rect
 from src.geo.packing import pack_rects_x, pack_rects_y, pack_rects
+from src.render import image
 
 rects = [Rect(269.5254015709299, 308.35764522666244, 25, 25),
          Rect(336.0757465489678, 225.034884505077, 25, 25),
@@ -273,12 +274,15 @@ def test_6741():
 
 def test_pack_rects_games():
     game = Rect(0, 0, direction=Direction.HORIZONTAL)
-    game.append([Rect(200, 200, 240, 240, image="suns")], Direction.HORIZONTAL)
-    game.append([Rect(0, 0, 120, 100, image="vs"), Rect(0, 0, 140, 31, image="time")], Direction.VERTICAL)
+    game.append([Rect(200, 180, 240, 240, image="suns")], Direction.HORIZONTAL)
+    game.append([Rect(0, 0, 40, 10)], Direction.HORIZONTAL)
+    game.append([Rect(0, 0, 100, 80, image="vs"), Rect(0, 0, 140, 31, text="6:00 PM")], Direction.VERTICAL)
+    game.append([Rect(0, 0, 40, 10)], Direction.HORIZONTAL)
     game.append([Rect(0, 0, 240, 240, image="mavericks")], Direction.HORIZONTAL)
 
     parent = Rect()
-    parent.append([game, game, game], direction=Direction.VERTICAL)
+    parent.append([game, Rect(0, 0, 10, 20), game, Rect(0, 0, 10, 20), game],
+                  direction=Direction.VERTICAL)
 
     # render_rects(parent, "r")
     # render_rects(parent.children[0].children, "g")
@@ -296,7 +300,7 @@ def test_pack_rects_games():
     #
     # show()
 
-    # image.render_rects(parent, (1080, 1080))
+    image.render_rects(parent, (1080, 1080))
 
     expected = Rect(200.0, 200.0, 620.0, 720.0,
                     [Rect(200.0, 200.0, 620.0, 720.0,

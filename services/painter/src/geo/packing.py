@@ -18,7 +18,7 @@ def center_rects_y(rects):
             packed_children = pack_rects_y(rect.children, rect.x, y)
 
         acc.append(Rect(rect.x, y, rect.width, rect.height,
-                        packed_children, rect.direction, rect.image))
+                        packed_children, rect.direction, rect.image, rect.text))
 
     return acc
 
@@ -39,7 +39,7 @@ def center_rects_x(rects):
             packed_children = pack_rects_y(rect.children, x, rect.y)
 
         acc.append(Rect(x, rect.y, rect.width, rect.height,
-                        packed_children, rect.direction, rect.image))
+                        packed_children, rect.direction, rect.image, rect.text))
 
     return acc
 
@@ -67,7 +67,7 @@ def arrange_rects_x(rects, origin_x=None, origin_y=None):
             arranged_children = arrange_rects_y(rect.children, x, origin_y)
 
         acc.append(Rect(x, origin_y, rect.width, rect.height,
-                        arranged_children, rect.direction, rect.image))
+                        arranged_children, rect.direction, rect.image, rect.text))
 
     return acc
 
@@ -96,7 +96,7 @@ def arrange_rects_y(rects, origin_x=None, origin_y=None):
 
         # TODO: A way to not keep updating this every time a new property is added
         acc.append(Rect(origin_x, y, rect.width, rect.height,
-                        arranged_children, rect.direction, rect.image))
+                        arranged_children, rect.direction, rect.image, rect.text))
 
     return acc
 

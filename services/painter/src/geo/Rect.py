@@ -4,8 +4,7 @@ from src.geo.packing import pack_rects
 
 
 class Rect:
-    def __init__(self, x=0, y=0, w=0, h=0, children=None, direction=Direction.HORIZONTAL, image=None):
-
+    def __init__(self, x=0, y=0, w=0, h=0, children=None, direction=Direction.HORIZONTAL, image=None, text=None):
         self.x = x
         self.y = y
         self.width = w
@@ -13,6 +12,7 @@ class Rect:
         self.children = [] if children is None else children
         self.direction = direction
         self.image = image
+        self.text = text
 
     def append(self, rects, direction=Direction.HORIZONTAL):
         if type(rects) == list and len(rects) == 0:

@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 
 from src.geo.rect_util import flatten_rects
 
@@ -36,14 +36,22 @@ def render_rects(rects, canvas_size=(600, 600), grid_size=100):
     default_img = "../img/bucks.png"
 
     for rect in rects:
-        img_canvas = Image.new('RGBA', canvas_size)
+        if rect.image is not None:
+            img_canvas = Image.new('RGBA', canvas_size)
 
-        img = Image.open(f"../img/{rect.image}.png" if rect.image is not None else default_img)\
-            .convert('RGBA')
-        img = img.resize((int(rect.width), int(rect.height)))
+            img = Image.open(f"../img/{rect.image}.png" if rect.image is not None else default_img) \
+                .convert('RGBA')
+            img = img.resize((int(rect.width), int(rect.height)))
 
-        img_canvas.alpha_composite(img, (int(rect.x), int(rect.y)))
+            img_canvas.alpha_composite(img, (int(rect.x), int(rect.y)))
 
-        canvas.alpha_composite(img_canvas)
+            canvas.alpha_composite(img_canvas)
+
+        if rect.text is not None:
+            txt = Image.new("RGBA", canvas.size, (255, 255, 255, 0))
+            fnt = ImageFont.truetype("../fonts/Roboto-Black.ttf", 40)
+            d = ImageDraw.Draw(txt)
+            d.text((int(rect.x), int(rect.y)), rect.text, font=fnt, fill=(255, 255, 255, 255))
+            canvas.alpha_composite(txt)
 
     canvas.show()
