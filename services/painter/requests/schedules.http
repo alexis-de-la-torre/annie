@@ -1,0 +1,6 @@
+POST http://localhost:5000/schedules
+Content-Type: application/json
+
+{
+  "date": "2021-05-16"
+}
