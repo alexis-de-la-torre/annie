@@ -32,6 +32,11 @@ def get_min_bounding_box_points(points):
 
 
 def get_min_bounding_box_rects(rects):
+    from src.geo.Rect import Rect
+
+    if type(rects) is Rect:
+        rects = [rects]
+
     points = rects_to_points(rects)
     hull = get_convex_hull(points)
     return get_min_bounding_box_points(hull)
