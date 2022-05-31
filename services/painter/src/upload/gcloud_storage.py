@@ -11,6 +11,8 @@ def upload_img(img, name):
 
     file_name = f"{name}.jpg"
 
+    file_name = file_name.replace(" ", "-").replace("+", "-")
+
     img.save(f"out/{file_name}")
 
     storage_client = storage.Client()

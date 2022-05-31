@@ -102,7 +102,7 @@ def gen_schedule(date):
     qty = np.random.choice(range(1, 5))
 
     date = dateutil.parser.parse(date)
-    date = date.strftime("%A %d de %B").upper()
+    date = date.strftime("%A %d de %B %H:%M").upper()
 
     if qty == 1:
         return gen_schedule_l(qty, date)
