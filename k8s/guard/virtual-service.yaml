@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: guard
+  namespace: nfl-schedules
+spec:
+  hosts:
+  - "guard.iap.adlt.dev"
+  gateways:
+  - nfl-schedules-gateway-iap
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+      - destination:
+          host: guard
