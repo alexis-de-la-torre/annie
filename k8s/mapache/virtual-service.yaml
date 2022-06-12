@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mapache
+  namespace: nfl-schedules
+spec:
+  hosts:
+  - "mapache.adlt.dev"
+  gateways:
+  - nfl-schedules-gateway-default
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+      - destination:
+          host: mapache
+          port:
+            number: 9080
