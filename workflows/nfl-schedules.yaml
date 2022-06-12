@@ -1,0 +1,32 @@
+main:
+    params: [input]
+    steps:
+    - checkInput:
+        switch:
+            - condition: ${"date" in input}
+              assign:
+                - date: ${input.date}
+              next: painter
+    - getCurrentTime:
+        call: http.get
+        args:
+            url: https://api.timezonedb.com/v2.1/get-time-zone?key=TIMEZONEDB_API_KEY&format=json&by=zone&zone=America/Mexico_City
+        result: currentDateTime
+    - setFromCallResult:
+        assign:
+            - date: ${currentDateTime.body.formatted}
+    - painter:
+        call: http.post
+        args:
+            url: https://painter.adlt.dev/api/v1/nba_schedules
+            body:
+                date: ${date}
+        result: painterResult
+    - influencer:
+        call: http.post
+        args:
+            url: https://influencer.adlt.dev/api/v1/posts
+            body: ${painterResult.body}
+        result: influencerResult
+    - out:
+            return: ${painterResult.body}
